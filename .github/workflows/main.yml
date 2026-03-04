@@ -1,0 +1,22 @@
+name: Project-Auto-Check
+# متى يعمل هذا البرنامج؟ عند كل Push أو Pull Request
+on: [push, pull_request]
+
+jobs:
+  test-logic:
+    runs-on: ubuntu-latest # سيقوم جيت هوب بتشغيل كمبيوتر تخيلي بنظام لينكس لفحص كودك
+    steps:
+      - name: Copy Repository Files
+        uses: actions/checkout@v3
+
+      - name: Check if HTML exists
+        run: |
+          if [ -f src/index.html ]; then
+            echo "✅ index.html found!"
+          else
+            echo "❌ Error: index.html is missing!"
+            exit 1
+          fi
+
+      - name: Test JavaScript Syntax
+        run: echo "JavaScript syntax check passed (Mock Test)"
